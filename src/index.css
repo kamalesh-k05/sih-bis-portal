@@ -1,0 +1,144 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    color: #e2e8f0;
+    line-height: 1.6;
+    background-color: #0a0f1c;
+    background-image:
+      linear-gradient(rgba(8, 11, 19, 0.10), rgba(8, 11, 19, 0.10)),
+      url('/background.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  }
+
+  input, textarea, select {
+    color: #e2e8f0;
+    background-color: #0d1424;
+    caret-color: #fbbf24;
+  }
+
+  input::placeholder, textarea::placeholder {
+    color: #64748b;
+    opacity: 1;
+  }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #e2e8f0;
+    -webkit-box-shadow: 0 0 0 1000px #0d1424 inset;
+    transition: background-color 9999s ease-in-out 0s;
+  }
+
+  ::selection {
+    background: rgba(255, 163, 66, 0.35);
+    color: #0f172a;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', 'Plus Jakarta Sans', sans-serif;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+}
+
+@layer components {
+  /* --- Premium dark primitives (Home / frame) --- */
+  .glass {
+    background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  /* Double-bezel: outer shell */
+  .bezel {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 5px;
+    border-radius: 1.75rem;
+  }
+  /* Double-bezel: inner core */
+  .bezel-core {
+    background: rgba(13,17,28,0.72);
+    border-radius: calc(1.75rem - 5px);
+    box-shadow: inset 0 1px 1px rgba(255,255,255,0.06);
+  }
+
+  .hairline {
+    border: 1px solid rgba(255,255,255,0.09);
+  }
+
+  /* --- Premium dark tool surfaces --- */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 bg-saffron-500 text-black px-6 py-3 rounded-full 
+           font-semibold text-sm hover:bg-saffron-400 transition-all duration-300 
+           active:scale-[0.97] shadow-[0_0_0_1px_rgba(255,163,66,0.4),0_8px_24px_-8px_rgba(255,150,60,0.5)];
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 bg-white/[0.05] text-slate-100 px-6 py-3 rounded-full 
+           font-semibold text-sm border border-white/15 hover:border-white/30 hover:bg-white/[0.09] transition-all 
+           duration-300 active:scale-[0.97];
+  }
+
+  .btn-saffron {
+    @apply inline-flex items-center justify-center gap-2 bg-saffron-500 text-black px-6 py-3 rounded-full 
+           font-semibold text-sm hover:bg-saffron-400 transition-all duration-300 shadow-sm 
+           shadow-[0_8px_24px_-8px_rgba(255,150,60,0.5)] active:scale-[0.97];
+  }
+
+  .card {
+    @apply bg-[#0d1424] rounded-2xl border border-white/10 
+           shadow-[0_1px_0_rgba(255,255,255,0.04)_inset,0_10px_30px_-12px_rgba(0,0,0,0.6)] 
+           hover:border-white/20 hover:bg-[#101832] transition-all duration-300;
+  }
+
+  .card-elevated {
+    @apply bg-[#0d1424] rounded-3xl border border-white/10 
+           shadow-[0_1px_0_rgba(255,255,255,0.05)_inset,0_24px_48px_-16px_rgba(0,0,0,0.7)];
+  }
+
+  .badge-green {
+    @apply inline-flex items-center gap-1 px-3 py-1 rounded-full 
+           bg-emerald-400/10 text-emerald-300 text-sm font-medium;
+  }
+
+  .badge-yellow {
+    @apply inline-flex items-center gap-1 px-3 py-1 rounded-full 
+           bg-amber-400/10 text-amber-300 text-sm font-medium;
+  }
+
+  .badge-red {
+    @apply inline-flex items-center gap-1 px-3 py-1 rounded-full 
+           bg-red-400/10 text-red-300 text-sm font-medium;
+  }
+
+  .badge-blue {
+    @apply inline-flex items-center gap-1 px-3 py-1 rounded-full 
+           bg-saffron-500/15 text-saffron-300 text-sm font-medium;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+

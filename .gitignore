@@ -1,0 +1,24 @@
+node_modules/
+dist/
+dist-ssr/
+*.local
+.env
+.env.local
+dev.log
+dev.err.log
+
+# Editor
+.vscode/
+.idea/
+.DS_Store
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Backend
+__pycache__/
+*.pyc
+.venv/
+venv/
