@@ -54,28 +54,43 @@ export default function Home() {
     return true;
   });
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [introStalled, setIntroStalled] = useState(false);
+  const [introStarted, setIntroStarted] = useState(false);
 
   useEffect(() => {
     if (!showIntro) return;
-    // Stuck-frame guard: if the video hasn't actually started playing within
-    // 2.5s (network/decode stall on first frame), reveal the hero instead of
-    // leaving a frozen black screen. If it IS playing, let it finish naturally.
+    // If the video has failed to actually start playing (autoplay blocked,
+    // codec/decode failure) within a generous window, reveal the hero instead
+    // of leaving a frozen screen forever. Only fires when playback truly never
+    // began — a playing video is never cut short.
     const stallTimer = setTimeout(() => {
       const v = videoRef.current;
-      if (!v || v.currentTime === 0) {
-        setIntroStalled(true);
+      if (!v || !v.currentTime || v.currentTime <= 0) {
+        if (v && (v.readyState === 0 || v.paused)) {
+          setShowIntro(false);
+          sessionStorage.setItem('bis-intro-seen', '1');
+        }
       }
-    }, 2500);
+    }, 7000);
     return () => clearTimeout(stallTimer);
   }, [showIntro]);
 
   useEffect(() => {
-    if (introStalled) {
-      setShowIntro(false);
-      sessionStorage.setItem('bis-intro-seen', '1');
+    if (!showIntro) return;
+    // Force playback to begin even under strict autoplay policies: retry
+    // play() until the video reports it is actually playing.
+    const v = videoRef.current;
+    if (v) {
+      const start = () => v.play().catch(() => {});
+      start();
+      const retry = setInterval(() => {
+        if (v.paused && v.readyState >= 1) start();
+        if (!v.paused) clearInterval(retry);
+      }, 400);
+      return () => clearInterval(retry);
     }
-  }, [introStalled]);
+  }, [showIntro, introStarted]);
+
+  const handleIntroStart = () => setIntroStarted(true);
 
   const handleIntroEnd = () => {
     setShowIntro(false);
@@ -127,12 +142,13 @@ export default function Home() {
               muted
               playsInline
               onEnded={handleIntroEnd}
+              onPlaying={handleIntroStart}
               onLoadedMetadata={() => videoRef.current?.play().catch(() => {})}
               onCanPlay={() => videoRef.current?.play().catch(() => {})}
               className="h-full w-full object-cover bg-black"
             >
-              <source src="/sih-bis-portal/intro-fixed.mp4" type="video/mp4" />
               <source src="/sih-bis-portal/intro-vp9.webm" type="video/webm" />
+              <source src="/sih-bis-portal/intro-fixed.mp4" type="video/mp4" />
             </video>
           </motion.div>
         )}
