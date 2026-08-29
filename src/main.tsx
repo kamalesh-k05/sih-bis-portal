@@ -6,7 +6,7 @@ import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <BrowserRouter basename={(import.meta as any).env.PROD ? '/Melprix-2026' : undefined}>
+    <BrowserRouter basename={(import.meta as any).env.PROD ? '/sih-bis-portal' : undefined}>
       <App />
     </BrowserRouter>
   </React.StrictMode>,
