@@ -123,16 +123,17 @@ export default function Home() {
           >
             <video
               ref={videoRef}
-              src="/sih-bis-portal/intro.mp4"
               autoPlay
               muted
               playsInline
               onEnded={handleIntroEnd}
               onLoadedMetadata={() => videoRef.current?.play().catch(() => {})}
               onCanPlay={() => videoRef.current?.play().catch(() => {})}
-              className="h-full w-full object-cover"
-              poster="/sih-bis-portal/logo.png"
-            />
+              className="h-full w-full object-cover bg-black"
+            >
+              <source src="/sih-bis-portal/intro-fixed.mp4" type="video/mp4" />
+              <source src="/sih-bis-portal/intro-vp9.webm" type="video/webm" />
+            </video>
           </motion.div>
         )}
       </AnimatePresence>
