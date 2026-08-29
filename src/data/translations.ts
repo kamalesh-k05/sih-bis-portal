@@ -234,7 +234,7 @@ export const translations: Record<string, TranslationKeys & Record<string, strin
     officialWebsite: 'BIS Official Website',
     officialCareApp: 'BIS Care App',
     fileComplaint: 'File Complaint',
-    footerCopyright: '© 2024 BIS Smart Portal. This is a prototype for Smart India Hackathon. Not affiliated with BIS.',
+    footerCopyright: '© 2026 BIS Smart Portal. This is a prototype for Smart India Hackathon. Not affiliated with BIS.',
   },
   hi: {
     whatYouNeed: 'आपको क्या चाहिए?',
@@ -355,7 +355,7 @@ export const translations: Record<string, TranslationKeys & Record<string, strin
     officialWebsite: 'BIS आधिकारिक वेबसाइट',
     officialCareApp: 'BIS केयर ऐप',
     fileComplaint: 'शिकायत दर्ज करें',
-    footerCopyright: '© 2024 BIS स्मार्ट पोर्टल। यह स्मार्ट इंडिया हैकाथॉन के लिए एक प्रोटोटाइप है। BIS से संबद्ध नहीं।',
+    footerCopyright: '© 2026 BIS स्मार्ट पोर्टल। यह स्मार्ट इंडिया हैकाथॉन के लिए एक प्रोटोटाइप है। BIS से संबद्ध नहीं।',
   },
   ta: {
     whatYouNeed: 'உங்களுக்கு என்ன தேவை?',
@@ -476,7 +476,7 @@ export const translations: Record<string, TranslationKeys & Record<string, strin
     officialWebsite: 'BIS அதிகாரப்பூர்வ இணையதளம்',
     officialCareApp: 'BIS கேர் ஆப்',
     fileComplaint: 'புகார் அளிக்கவும்',
-    footerCopyright: '© 2024 BIS ஸ்மார்ட் போர்ட்டல். இது ஸ்மார்ட் இந்தியா ஹேக்கத்தானுக்கான முன்மாதிரி. BIS உடன் தொடர்புடையது அல்ல.',
+    footerCopyright: '© 2026 BIS ஸ்மார்ட் போர்ட்டல். இது ஸ்மார்ட் இந்தியா ஹேக்கத்தானுக்கான முன்மாதிரி. BIS உடன் தொடர்புடையது அல்ல.',
   },
   te: {
     whatYouNeed: 'మీకు ఏమి కావాలి?',
@@ -589,7 +589,7 @@ export const translations: Record<string, TranslationKeys & Record<string, strin
     officialWebsite: 'BIS అధికారిక వెబ్‌సైట్',
     officialCareApp: 'BIS కేర్ యాప్',
     fileComplaint: 'ఫిర్యాదు చేయండి',
-    footerCopyright: '© 2024 BIS స్మార్ట్ పోర్టల్. ఇది స్మార్ట్ ఇండియా హాకథాన్ కోసం ఒక నమూనా. BIS తో సంబంధం లేదు.',
+    footerCopyright: '© 2026 BIS స్మార్ట్ పోర్టల్. ఇది స్మార్ట్ ఇండియా హాకథాన్ కోసం ఒక నమూనా. BIS తో సంబంధం లేదు.',
   },
   bn: {
     whatYouNeed: 'আপনার কী দরকার?',
@@ -702,7 +702,7 @@ export const translations: Record<string, TranslationKeys & Record<string, strin
     officialWebsite: 'বিআইএস অফিসিয়াল ওয়েবসাইট',
     officialCareApp: 'বিআইএস কেয়ার অ্যাপ',
     fileComplaint: 'অভিযোগ দাখিল করুন',
-    footerCopyright: '© 2024 বিআইএস স্মার্ট পোর্টাল। এটি স্মার্ট ইন্ডিয়া হ্যাকাথনের জন্য একটি প্রোটোটাইপ। বিআইএস-এর সাথে সম্পৃক্ত নয়।',
+    footerCopyright: '© 2026 বিআইএস স্মার্ট পোর্টাল। এটি স্মার্ট ইন্ডিয়া হ্যাকাথনের জন্য একটি প্রোটোটাইপ। বিআইএস-এর সাথে সম্পৃক্ত নয়।',
   },
   mr: {
     whatYouNeed: 'तुम्हाला काय हवे आहे?',
@@ -815,7 +815,7 @@ export const translations: Record<string, TranslationKeys & Record<string, strin
     officialWebsite: 'BIS अधिकृत संकेतस्थळ',
     officialCareApp: 'BIS केअर अ‍ॅप',
     fileComplaint: 'तक्रार नोंदवा',
-    footerCopyright: '© 2024 BIS स्मार्ट पोर्टल. हे स्मार्ट इंडिया हॅकाथॉनसाठी एक नमुना आहे. BIS शी संलग्न नाही.',
+    footerCopyright: '© 2026 BIS स्मार्ट पोर्टल. हे स्मार्ट इंडिया हॅकाथॉनसाठी एक नमुना आहे. BIS शी संलग्न नाही.',
   },
   gu: {
     whatYouNeed: 'તમારે શું જોઈએ છે?',
@@ -928,7 +928,7 @@ export const translations: Record<string, TranslationKeys & Record<string, strin
     officialWebsite: 'BIS સત્તાવાર વેબસાઇટ',
     officialCareApp: 'BIS કેર એપ',
     fileComplaint: 'ફરિયાદ નોંધાવો',
-    footerCopyright: '© 2024 BIS સ્માર્ટ પોર્ટલ. આ સ્માર્ટ ઇન્ડિયા હેકાથોન માટેનો એક નમૂનો છે. BIS સાથે સંબંધિત નથી.',
+    footerCopyright: '© 2026 BIS સ્માર્ટ પોર્ટલ. આ સ્માર્ટ ઇન્ડિયા હેકાથોન માટેનો એક નમૂનો છે. BIS સાથે સંબંધિત નથી.',
   },
   kn: {
     whatYouNeed: 'ನಿಮಗೆ ಏನು ಬೇಕು?',
@@ -1041,7 +1041,7 @@ export const translations: Record<string, TranslationKeys & Record<string, strin
     officialWebsite: 'BIS ಅಧಿಕೃತ ವೆಬ್‌ಸೈಟ್',
     officialCareApp: 'BIS ಕೇರ್ ಆಪ್',
     fileComplaint: 'ದೂರು ದಾಖಲಿಸಿ',
-    footerCopyright: '© 2024 BIS ಸ್ಮಾರ್ಟ್ ಪೋರ್ಟಲ್. ಇದು ಸ್ಮಾರ್ಟ್ ಇಂಡಿಯಾ ಹ್ಯಾಕಥಾನ್ಗಾಗಿ ಒಂದು ಮಾದರಿ. BIS ನೊಂದಿಗೆ ಸಂಬಂಧವಿಲ್ಲ.',
+    footerCopyright: '© 2026 BIS ಸ್ಮಾರ್ಟ್ ಪೋರ್ಟಲ್. ಇದು ಸ್ಮಾರ್ಟ್ ಇಂಡಿಯಾ ಹ್ಯಾಕಥಾನ್ಗಾಗಿ ಒಂದು ಮಾದರಿ. BIS ನೊಂದಿಗೆ ಸಂಬಂಧವಿಲ್ಲ.',
   },
   ml: {
     whatYouNeed: 'നിങ്ങൾക്ക് എന്താണ് വേണ്ടത്?',
@@ -1154,7 +1154,7 @@ export const translations: Record<string, TranslationKeys & Record<string, strin
     officialWebsite: 'BIS ഔദ്യോഗിക വെബ്‌സൈറ്റ്',
     officialCareApp: 'BIS കെയർ ആപ്പ്',
     fileComplaint: 'പരാതി രേഖപ്പെടുത്തുക',
-    footerCopyright: '© 2024 BIS സ്മാർട്ട് പോർട്ടൽ. ഇത് സ്മാർട്ട് ഇന്ത്യ ഹാക്കത്തോണിനുള്ള ഒരു മാതൃകയാണ്. BIS മായി ബന്ധപ്പെട്ടതല്ല.',
+    footerCopyright: '© 2026 BIS സ്മാർട്ട് പോർട്ടൽ. ഇത് സ്മാർട്ട് ഇന്ത്യ ഹാക്കത്തോണിനുള്ള ഒരു മാതൃകയാണ്. BIS മായി ബന്ധപ്പെട്ടതല്ല.',
   },
   pa: {
     whatYouNeed: 'ਤੁਹਾਨੂੰ ਕੀ ਚਾਹੀਦਾ ਹੈ?',
@@ -1267,7 +1267,7 @@ export const translations: Record<string, TranslationKeys & Record<string, strin
     officialWebsite: 'BIS ਅਧਿਕਾਰਤ ਵੈੱਬਸਾਈਟ',
     officialCareApp: 'BIS ਕੇਅਰ ਐਪ',
     fileComplaint: 'ਸ਼ਿਕਾਇਤ ਦਰਜ ਕਰੋ',
-    footerCopyright: '© 2024 BIS ਸਮਾਰਟ ਪੋਰਟਲ। ਇਹ ਸਮਾਰਟ ਇੰਡੀਆ ਹੈਕਾਥਨ ਲਈ ਇੱਕ ਪ੍ਰੋਟੋਟਾਈਪ ਹੈ। BIS ਨਾਲ ਸੰਬੰਧਿਤ ਨਹੀਂ।',
+    footerCopyright: '© 2026 BIS ਸਮਾਰਟ ਪੋਰਟਲ। ਇਹ ਸਮਾਰਟ ਇੰਡੀਆ ਹੈਕਾਥਨ ਲਈ ਇੱਕ ਪ੍ਰੋਟੋਟਾਈਪ ਹੈ। BIS ਨਾਲ ਸੰਬੰਧਿਤ ਨਹੀਂ।',
   },
   or: {
     whatYouNeed: 'ଆପଣଙ୍କର କ\'ଣ ଦରକାର?',
@@ -1380,7 +1380,7 @@ export const translations: Record<string, TranslationKeys & Record<string, strin
     officialWebsite: 'BIS ଅଧିକୃତ ୱେବସାଇଟ୍',
     officialCareApp: 'BIS କେୟାର ଆପ୍',
     fileComplaint: 'ଅଭିଯୋଗ ଦାଖଲ କରନ୍ତୁ',
-    footerCopyright: '© 2024 BIS ସ୍ମାର୍ଟ ପୋର୍ଟାଲ। ଏହା ସ୍ମାର୍ଟ ଇଣ୍ଡିଆ ହାକାଥନ ପାଇଁ ଏକ ପ୍ରୋଟୋଟାଇପ୍। BIS ସହିତ ସଂଯୁକ୍ତ ନୁହେଁ।',
+    footerCopyright: '© 2026 BIS ସ୍ମାର୍ଟ ପୋର୍ଟାଲ। ଏହା ସ୍ମାର୍ଟ ଇଣ୍ଡିଆ ହାକାଥନ ପାଇଁ ଏକ ପ୍ରୋଟୋଟାଇପ୍। BIS ସହିତ ସଂଯୁକ୍ତ ନୁହେଁ।',
   },
   as: {
     whatYouNeed: 'আপোনাৰ কি দৰকাৰ?',
@@ -1493,7 +1493,7 @@ export const translations: Record<string, TranslationKeys & Record<string, strin
     officialWebsite: 'BIS অফিচিয়েল ৱেবছাইট',
     officialCareApp: 'BIS কেয়াৰ এপ',
     fileComplaint: 'অভিযোগ দাখিল কৰক',
-    footerCopyright: '© 2024 BIS স্মাৰ্ট পৰ্টেল। ই স্মাৰ্ট ইণ্ডিয়া হেকাথনৰ বাবে এটা নমুনা। BIS ৰ সৈতে জড়িত নহয়।',
+    footerCopyright: '© 2026 BIS স্মাৰ্ট পৰ্টেল। ই স্মাৰ্ট ইণ্ডিয়া হেকাথনৰ বাবে এটা নমুনা। BIS ৰ সৈতে জড়িত নহয়।',
   },
   ur: {
     whatYouNeed: 'آپ کو کیا چاہیے؟',
@@ -1606,7 +1606,7 @@ export const translations: Record<string, TranslationKeys & Record<string, strin
     officialWebsite: 'BIS سرکاری ویب سائٹ',
     officialCareApp: 'BIS کیئر ایپ',
     fileComplaint: 'شکایت درج کریں',
-    footerCopyright: '© 2024 BIS سمارٹ پورٹل۔ یہ سمارٹ انڈیا ہیکاتھون کے لیے ایک پروٹوٹائپ ہے۔ BIS سے وابستہ نہیں۔',
+    footerCopyright: '© 2026 BIS سمارٹ پورٹل۔ یہ سمارٹ انڈیا ہیکاتھون کے لیے ایک پروٹوٹائپ ہے۔ BIS سے وابستہ نہیں۔',
   },
   sa: {
     whatYouNeed: 'भवतः किं प्रयोजनम्?',
@@ -1719,7 +1719,7 @@ export const translations: Record<string, TranslationKeys & Record<string, strin
     officialWebsite: 'BIS आधिकारिकजालस्थलम्',
     officialCareApp: 'BIS केयर्-अनुप्रयोगः',
     fileComplaint: 'अभियोगं निवेदयतु',
-    footerCopyright: '© 2024 BIS स्मार्ट्-पोर्टलम्। एतत् स्मार्ट्-इण्डिया-हैकाथॉन्-कृते एकम् आदर्शरूपम्। BIS सह सम्बद्धं नास्ति।',
+    footerCopyright: '© 2026 BIS स्मार्ट्-पोर्टलम्। एतत् स्मार्ट्-इण्डिया-हैकाथॉन्-कृते एकम् आदर्शरूपम्। BIS सह सम्बद्धं नास्ति।',
   },
 };
 
