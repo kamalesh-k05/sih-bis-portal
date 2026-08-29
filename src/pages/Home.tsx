@@ -54,16 +54,28 @@ export default function Home() {
     return true;
   });
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [introStalled, setIntroStalled] = useState(false);
 
   useEffect(() => {
     if (!showIntro) return;
-    // Auto-fallback: hide intro after 9s even if video stalls
-    const fallback = setTimeout(() => {
+    // Stuck-frame guard: if the video hasn't actually started playing within
+    // 2.5s (network/decode stall on first frame), reveal the hero instead of
+    // leaving a frozen black screen. If it IS playing, let it finish naturally.
+    const stallTimer = setTimeout(() => {
+      const v = videoRef.current;
+      if (!v || v.currentTime === 0) {
+        setIntroStalled(true);
+      }
+    }, 2500);
+    return () => clearTimeout(stallTimer);
+  }, [showIntro]);
+
+  useEffect(() => {
+    if (introStalled) {
       setShowIntro(false);
       sessionStorage.setItem('bis-intro-seen', '1');
-    }, 9000);
-    return () => clearTimeout(fallback);
-  }, [showIntro]);
+    }
+  }, [introStalled]);
 
   const handleIntroEnd = () => {
     setShowIntro(false);
@@ -116,9 +128,10 @@ export default function Home() {
               muted
               playsInline
               onEnded={handleIntroEnd}
+              onLoadedMetadata={() => videoRef.current?.play().catch(() => {})}
               onCanPlay={() => videoRef.current?.play().catch(() => {})}
               className="h-full w-full object-cover"
-              poster="/logo.png"
+              poster="/sih-bis-portal/logo.png"
             />
           </motion.div>
         )}
