@@ -11,9 +11,12 @@ import '@fontsource/inter/600.css'
 import '@fontsource/inter/700.css'
 import './index.css'
 
+const viteBase: string = (import.meta as any).env?.BASE_URL ?? '/';
+const basename = viteBase.replace(/\/$/, ''); // "/sih-bis-portal/" -> "/sih-bis-portal"
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <BrowserRouter basename={(import.meta as any).env.PROD ? '/sih-bis-portal' : undefined}>
+    <BrowserRouter basename={basename}>
       <App />
     </BrowserRouter>
   </React.StrictMode>,
