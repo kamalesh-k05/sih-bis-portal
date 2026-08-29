@@ -19,7 +19,6 @@ import { translations } from '../data/translations';
 import { BIS_EDUCATIONAL_CONTENT } from '../data/standards';
 import GlareHover from '../components/GlareHover';
 import Seo, { SITE_URL, SITE_NAME } from '../components/Seo';
-import { getConsent } from '../utils/consent';
 
 const C = { ease: [0.32, 0.72, 0, 1] as [number, number, number, number] };
 
@@ -47,18 +46,6 @@ const stagger: Variants = {
   show: { transition: { staggerChildren: 0.12 } },
 };
 
-// sessionStorage is non-essential persistence, so only write it after the user
-// has explicitly accepted non-essential storage via the cookie consent banner.
-function persistIntroSeen() {
-  if (getConsent() === 'accepted') {
-    try {
-      sessionStorage.setItem('bis-intro-seen', '1');
-    } catch {
-      /* ignore */
-    }
-  }
-}
-
 export default function Home() {
   const { language, toggleAssistant } = useAppStore();
   const t = translations[language] || translations['en'];
@@ -81,7 +68,7 @@ export default function Home() {
       if (!v || !v.currentTime || v.currentTime <= 0) {
         if (v && (v.readyState === 0 || v.paused)) {
           setShowIntro(false);
-          persistIntroSeen();
+          sessionStorage.setItem('bis-intro-seen', '1');
         }
       }
     }, 7000);
@@ -108,7 +95,7 @@ export default function Home() {
 
   const handleIntroEnd = () => {
     setShowIntro(false);
-    persistIntroSeen();
+    sessionStorage.setItem('bis-intro-seen', '1');
   };
 
   const features = [

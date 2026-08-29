@@ -11,7 +11,6 @@ import HelpPage from './pages/HelpPage';
 import VerifyPage from './pages/VerifyPage';
 import JudgeDemo from './components/JudgeDemo';
 import NotFound from './pages/NotFound';
-import CookieConsent from './components/CookieConsent';
 
 export default function App() {
   return (
@@ -38,7 +37,6 @@ export default function App() {
       </main>
       <Footer />
       <AssistantChat />
-      <CookieConsent />
     </div>
   );
 }
