@@ -111,7 +111,7 @@ export default function Home() {
           >
             <video
               ref={videoRef}
-              src="/intro.mp4"
+              src="/sih-bis-portal/intro.mp4"
               autoPlay
               muted
               playsInline

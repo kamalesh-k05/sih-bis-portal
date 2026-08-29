@@ -26,7 +26,7 @@ export default function Header() {
       <div className="mx-auto flex max-w-[760px] items-center justify-center gap-[18px]">
         {/* Logo — BIS mark */}
         <Link to="/" className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full bg-white p-1 shadow-[0_4px_14px_rgba(0,0,0,0.16)] transition-transform duration-300 hover:scale-105" aria-label="BIS Smart Portal — Home">
-          <img src="/logo-mark.png" alt="BIS" className="h-full w-full object-contain" />
+          <img src="/sih-bis-portal/logo-mark.png" alt="BIS" className="h-full w-full object-contain" />
         </Link>
 
         {/* Desktop Nav pill */}
