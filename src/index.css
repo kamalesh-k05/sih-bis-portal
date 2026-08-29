@@ -16,7 +16,7 @@
   }
 
   body {
-    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
     color: #e2e8f0;
     line-height: 1.6;
     background-color: #0a0f1c;
@@ -53,9 +53,9 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Space Grotesk', 'Plus Jakarta Sans', sans-serif;
+    font-family: 'Playfair Display', Georgia, serif;
     line-height: 1.05;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.015em;
   }
 }
 
