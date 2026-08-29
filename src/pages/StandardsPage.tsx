@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Search, ChevronRight } from 'lucide-react';
 import { INDIAN_STANDARDS, type IndianStandard } from '../data/standards';
+import Seo, { SITE_URL } from '../components/Seo';
 
 const categories = [...new Set(INDIAN_STANDARDS.map(s => s.category))].sort();
 
@@ -22,6 +23,37 @@ export default function StandardsPage() {
 
   return (
     <div className="min-h-screen">
+      <Seo
+        title="Indian Standards Database | BIS Smart Portal"
+        description="Browse and search the Indian Standards (IS codes) database — categories, product coverage, and certification requirements in one place."
+        path="/standards"
+        schema={[
+          {
+            '@context': 'https://schema.org',
+            '@type': 'WebPage',
+            name: 'Indian Standards Database',
+            url: `${SITE_URL}/standards`,
+            description:
+              'Browse and search all indexed Indian Standards (IS codes) by product, category, and certification status.',
+            inLanguage: 'en',
+            breadcrumb: {
+              '@type': 'BreadcrumbList',
+              itemListElement: [
+                { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
+                { '@type': 'ListItem', position: 2, name: 'Standards', item: `${SITE_URL}/standards` },
+              ],
+            },
+          },
+          {
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
+              { '@type': 'ListItem', position: 2, name: 'Standards', item: `${SITE_URL}/standards` },
+            ],
+          },
+        ]}
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
         {/* Header */}
         <div className="mb-8">

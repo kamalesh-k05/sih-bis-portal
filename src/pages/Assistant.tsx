@@ -9,6 +9,7 @@ import { searchStandards } from '../utils/searchEngine';
 import { validateResponse, getConfidenceLevel, buildSafetyDisclaimer } from '../utils/antiHallucination';
 import { generateConversationalResponse } from '../utils/responseGenerator';
 import type { ChatMessage } from '../types';
+import Seo, { SITE_URL } from '../components/Seo';
 
 export default function Assistant() {
   const { language, chatMessages, addChatMessage, setUserType } = useAppStore();
@@ -153,6 +154,36 @@ export default function Assistant() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <Seo
+        title="BIS Assistant | BIS Smart Portal"
+        description="Ask the BIS Smart Portal assistant anything about Indian Standards and BIS certification — instant, verified answers."
+        path="/assistant"
+        schema={[
+          {
+            '@context': 'https://schema.org',
+            '@type': 'WebPage',
+            name: 'BIS Assistant',
+            url: `${SITE_URL}/assistant`,
+            description: 'Chat with the BIS Smart Portal assistant about Indian Standards and BIS certification.',
+            inLanguage: 'en',
+            breadcrumb: {
+              '@type': 'BreadcrumbList',
+              itemListElement: [
+                { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
+                { '@type': 'ListItem', position: 2, name: 'BIS Assistant', item: `${SITE_URL}/assistant` },
+              ],
+            },
+          },
+          {
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
+              { '@type': 'ListItem', position: 2, name: 'BIS Assistant', item: `${SITE_URL}/assistant` },
+            ],
+          },
+        ]}
+      />
       <div className="max-w-3xl mx-auto w-full flex-1 flex flex-col px-4 sm:px-6 py-6">
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-sm text-slate-400 mb-4">

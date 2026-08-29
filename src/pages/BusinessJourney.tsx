@@ -12,6 +12,7 @@ import { INDIAN_STANDARDS, type IndianStandard } from '../data/standards';
 import { searchStandards, type SearchResult } from '../utils/searchEngine';
 import { validateResponse, getConfidenceLevel, buildSafetyDisclaimer } from '../utils/antiHallucination';
 import { generateProductStandardsResponse } from '../utils/responseGenerator';
+import Seo, { SITE_URL, SITE_NAME } from '../components/Seo';
 
 const productExamples = [
   'I manufacture electric fans',
@@ -84,6 +85,38 @@ export default function BusinessJourney() {
 
   return (
     <div className="min-h-screen">
+      <Seo
+        title="For Businesses — BIS Certification | BIS Smart Portal"
+        description="Find the right Indian Standard for your product, understand the BIS certification roadmap, and get your document checklist — built for businesses."
+        path="/business"
+        schema={[
+          {
+            '@context': 'https://schema.org',
+            '@type': 'WebPage',
+            name: 'For Businesses — BIS Certification',
+            url: `${SITE_URL}/business`,
+            description:
+              'Discover the Indian Standards that apply to your product and navigate the BIS certification journey.',
+            inLanguage: 'en',
+            isPartOf: { '@type': 'WebSite', name: SITE_NAME, url: SITE_URL },
+            breadcrumb: {
+              '@type': 'BreadcrumbList',
+              itemListElement: [
+                { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
+                { '@type': 'ListItem', position: 2, name: 'For Businesses', item: `${SITE_URL}/business` },
+              ],
+            },
+          },
+          {
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
+              { '@type': 'ListItem', position: 2, name: 'For Businesses', item: `${SITE_URL}/business` },
+            ],
+          },
+        ]}
+      />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-sm text-slate-400 mb-6">

@@ -18,6 +18,7 @@ import { useAppStore } from '../store/appStore';
 import { translations } from '../data/translations';
 import { BIS_EDUCATIONAL_CONTENT } from '../data/standards';
 import GlareHover from '../components/GlareHover';
+import Seo, { SITE_URL, SITE_NAME } from '../components/Seo';
 
 const C = { ease: [0.32, 0.72, 0, 1] as [number, number, number, number] };
 
@@ -127,6 +128,40 @@ export default function Home() {
 
   return (
     <div className="relative min-h-screen overflow-hidden text-white">
+      <Seo
+        title="BIS Smart Portal — Indian Standards Made Simple"
+        description="BIS Smart Portal — the AI-powered assistant for Indian Standards and BIS Services. Find the right IS code, understand BIS certification, and verify genuine products."
+        path="/"
+        schema={[
+          {
+            '@context': 'https://schema.org',
+            '@type': 'WebPage',
+            name: 'Indian Standards Made Simple',
+            url: `${SITE_URL}/`,
+            description:
+              'Find the right Indian Standard for your product, understand BIS certification, or verify whether a product is genuine — all in one place.',
+            inLanguage: 'en',
+            isPartOf: {
+              '@type': 'WebSite',
+              name: SITE_NAME,
+              url: SITE_URL,
+            },
+            breadcrumb: {
+              '@type': 'BreadcrumbList',
+              itemListElement: [
+                { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
+              ],
+            },
+          },
+          {
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
+            ],
+          },
+        ]}
+      />
       {/* Intro video overlay — full screen, no skip, reveals hero on end */}
       <AnimatePresence>
         {showIntro && (

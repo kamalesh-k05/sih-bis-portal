@@ -8,6 +8,7 @@ import { useAppStore } from '../store/appStore';
 import { translations } from '../data/translations';
 import { verifyProduct, getMarkExplanation } from '../utils/verificationEngine';
 import { BIS_EDUCATIONAL_CONTENT } from '../data/standards';
+import Seo, { SITE_URL, SITE_NAME } from '../components/Seo';
 
 export default function ConsumerJourney() {
   const { language, setUserType } = useAppStore();
@@ -41,6 +42,38 @@ export default function ConsumerJourney() {
 
   return (
     <div className="min-h-screen">
+      <Seo
+        title="For Consumers — Verify BIS Products | BIS Smart Portal"
+        description="Check whether a product is genuine, understand BIS marks, and learn how to verify product certification — built for consumers."
+        path="/consumer"
+        schema={[
+          {
+            '@context': 'https://schema.org',
+            '@type': 'WebPage',
+            name: 'For Consumers — Verify BIS Products',
+            url: `${SITE_URL}/consumer`,
+            description:
+              'Check whether a product is genuine, understand BIS marks, and learn how to verify product certification.',
+            inLanguage: 'en',
+            isPartOf: { '@type': 'WebSite', name: SITE_NAME, url: SITE_URL },
+            breadcrumb: {
+              '@type': 'BreadcrumbList',
+              itemListElement: [
+                { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
+                { '@type': 'ListItem', position: 2, name: 'For Consumers', item: `${SITE_URL}/consumer` },
+              ],
+            },
+          },
+          {
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
+              { '@type': 'ListItem', position: 2, name: 'For Consumers', item: `${SITE_URL}/consumer` },
+            ],
+          },
+        ]}
+      />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-sm text-slate-400 mb-6">

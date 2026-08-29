@@ -4,6 +4,7 @@ import { ChevronRight, ChevronDown, AlertTriangle, MessageSquare, ExternalLink, 
 import { motion } from 'framer-motion';
 import { BIS_EDUCATIONAL_CONTENT } from '../data/standards';
 import { useAppStore } from '../store/appStore';
+import Seo, { SITE_URL, SITE_NAME } from '../components/Seo';
 
 export default function HelpPage() {
   const location = useLocation();
@@ -47,6 +48,51 @@ export default function HelpPage() {
 
   return (
     <div className="min-h-screen">
+      <Seo
+        title="Help & Learning Center | BIS Smart Portal"
+        description="FAQ and guides about Indian Standards, BIS certification, how to verify products, costs, and timelines — from the BIS Smart Portal learning center."
+        path="/help"
+        schema={[
+          {
+            '@context': 'https://schema.org',
+            '@type': 'WebPage',
+            name: 'Help & Learning Center',
+            url: `${SITE_URL}/help`,
+            description:
+              'Everything you need to know about Indian Standards and BIS: FAQs, guides on BIS marks, and certification help.',
+            inLanguage: 'en',
+            isPartOf: {
+              '@type': 'WebSite',
+              name: SITE_NAME,
+              url: SITE_URL,
+            },
+            breadcrumb: {
+              '@type': 'BreadcrumbList',
+              itemListElement: [
+                { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
+                { '@type': 'ListItem', position: 2, name: 'Help', item: `${SITE_URL}/help` },
+              ],
+            },
+          },
+          {
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
+              { '@type': 'ListItem', position: 2, name: 'Help', item: `${SITE_URL}/help` },
+            ],
+          },
+          {
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: faqs.map((faq) => ({
+              '@type': 'Question',
+              name: faq.question,
+              acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+            })),
+          },
+        ]}
+      />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-sm text-slate-400 mb-6">
