@@ -68,19 +68,19 @@ export default function Header() {
               <ChevronDown className="h-3 w-3" />
             </button>
             {langOpen && (
-              <div className="absolute right-0 top-full mt-3 w-56 rounded-2xl border border-white/10 bg-[#0c1019]/95 p-1.5 backdrop-blur-xl shadow-2xl max-h-[70vh] overflow-y-auto">
+              <div className="absolute right-0 top-full mt-3 w-[min(18rem,calc(100vw-2rem))] rounded-2xl border border-white/10 bg-[#0c1019]/95 p-1.5 backdrop-blur-xl shadow-2xl max-h-[70vh] overflow-y-auto">
                 {LANGUAGES.map((lang) => (
                   <button
                     key={lang.code}
                     onClick={() => { setLanguage(lang.code); setLangOpen(false); }}
-                    className={`flex w-full items-center justify-between gap-2 rounded-xl px-4 py-2 text-left text-sm transition-colors ${
+                    className={`flex w-full items-center justify-between gap-2 rounded-xl px-4 py-2 text-left text-sm transition-colors break-words ${
                       language === lang.code
                         ? 'bg-saffron-500/15 text-saffron-300'
                         : 'text-white/60 hover:bg-white/5 hover:text-white'
                     }`}
                   >
-                    <span>{lang.nativeName}</span>
-                    <span className="text-[10px] text-white/30">{lang.name}</span>
+                    <span className="break-anywhere min-w-0">{lang.nativeName}</span>
+                    <span className="shrink-0 text-[10px] text-white/30">{lang.name}</span>
                   </button>
                 ))}
               </div>
@@ -90,11 +90,11 @@ export default function Header() {
           {/* Desktop language pill (dark, like landing sign-in) */}
           <button
             onClick={() => { setLangOpen(true); }}
-            className="hidden items-center gap-2 rounded-full bg-[#28282a] px-[18px] py-2.5 text-sm font-medium text-[#c8c8c8] shadow-[0_4px_14px_rgba(0,0,0,0.16)] transition-colors duration-250 hover:bg-[#323234] hover:text-white lg:inline-flex"
+            className="hidden max-w-[160px] items-center gap-2 rounded-full bg-[#28282a] px-[18px] py-2.5 text-sm font-medium text-[#c8c8c8] shadow-[0_4px_14px_rgba(0,0,0,0.16)] transition-colors duration-250 hover:bg-[#323234] hover:text-white lg:inline-flex"
           >
-            <Globe className="h-4 w-4" />
-            <span>{LANGUAGES.find(l => l.code === language)?.nativeName || 'English'}</span>
-            <ChevronDown className="h-3 w-3" />
+            <Globe className="h-4 w-4 shrink-0" />
+            <span className="truncate">{LANGUAGES.find(l => l.code === language)?.nativeName || 'English'}</span>
+            <ChevronDown className="h-3 w-3 shrink-0" />
           </button>
 
           {/* Mobile toggle */}
@@ -128,12 +128,12 @@ export default function Header() {
                     to={link.path}
                     onClick={() => setMobileOpen(false)}
                     style={{ transitionDelay: mobileOpen ? `${i * 40}ms` : '0ms' }}
-                    className={`flex items-center justify-between rounded-2xl px-4 py-3 text-sm font-medium transition-all duration-500 [transition-timing-function:cubic-bezier(0.32,0.72,0,1)] ${
+                    className={`flex items-center justify-between gap-3 rounded-2xl px-4 py-3 text-sm font-medium transition-all duration-500 [transition-timing-function:cubic-bezier(0.32,0.72,0,1)] ${
                       mobileOpen ? 'translate-y-0 opacity-100' : 'translate-y-3 opacity-0'
                     } ${isActive ? 'bg-white/10 text-white' : 'text-white/60 hover:bg-white/5 hover:text-white'}`}
                   >
-                    {t[link.key]}
-                    <ArrowUpRight className="h-4 w-4 text-white/25" />
+                    <span className="break-anywhere min-w-0 text-left">{t[link.key]}</span>
+                    <ArrowUpRight className="h-4 w-4 shrink-0 text-white/25" />
                   </Link>
                 );
               })}

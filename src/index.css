@@ -7,6 +7,13 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    min-width: 0;
+  }
+
+  /* Prevent long Indic text (Tamil etc.) from expanding viewport */
+  h1, h2, h3, h4, p, span, a, button, div {
+    overflow-wrap: anywhere;
+    word-break: break-word;
   }
 
   html {
@@ -20,12 +27,27 @@
     color: #e2e8f0;
     line-height: 1.6;
     background-color: #0a0f1c;
+    overflow-x: hidden;
+  }
+
+  /* Fixed background layer — works on iOS/Android where background-attachment:fixed is broken */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-color: #0a0f1c;
     background-image:
       linear-gradient(rgba(8, 11, 19, 0.10), rgba(8, 11, 19, 0.10)),
-      url('/background.png');
+      url('/sih-bis-portal/background.png');
     background-size: cover;
     background-position: center;
-    background-attachment: fixed;
+    background-repeat: no-repeat;
+  }
+
+  html {
+    overflow-x: hidden;
   }
 
   input, textarea, select {
@@ -140,6 +162,10 @@
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+  .break-anywhere {
+    overflow-wrap: anywhere;
+    word-break: break-word;
   }
 }
 

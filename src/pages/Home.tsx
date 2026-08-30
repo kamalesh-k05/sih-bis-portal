@@ -213,29 +213,28 @@ export default function Home() {
           {/* Editorial statement */}
           <motion.div variants={stagger} initial="hidden" animate="show" className="relative z-10">
             <motion.div custom={0} variants={reveal}
-              className="mb-4 text-[11px] font-medium uppercase tracking-[0.18em] text-black/70 opacity-90 sm:text-[13px]">
+              className="mb-4 break-anywhere px-2 text-[11px] font-medium uppercase tracking-[0.18em] text-black/70 opacity-90 sm:text-[13px]">
               {t.heroEyebrow}
             </motion.div>
 
             <motion.h1 custom={2} variants={reveal}
-              className="font-display font-medium text-5xl leading-[1.12] tracking-tight text-black sm:text-6xl lg:text-[5rem] text-balance">
-              {t.heroTitle1}
-              <br />
-              {t.heroTitle2}
+              className="break-anywhere font-display font-medium text-[2rem] leading-[1.12] tracking-tight text-black text-balance sm:text-6xl lg:text-[5rem] min-w-0 px-2">
+              <span className="block">{t.heroTitle1}</span>
+              <span className="block">{t.heroTitle2}</span>
             </motion.h1>
 
             <motion.p custom={3} variants={reveal}
-              className="mx-auto mt-6 max-w-[500px] text-lg leading-relaxed text-black/70 opacity-90">
+              className="break-anywhere mx-auto mt-6 max-w-[500px] px-2 text-base leading-relaxed text-black/70 opacity-90 sm:text-lg min-w-0">
               {t.heroSubtitle}
             </motion.p>
 
-            <motion.div custom={4} variants={reveal} className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <motion.div custom={4} variants={reveal} className="mt-8 flex w-full flex-col items-center justify-center gap-3 px-4 sm:flex-row sm:w-auto">
               <Link to="/business"
-                className="inline-flex items-center justify-center rounded-full bg-saffron-500 px-7 py-3 text-sm font-semibold text-black shadow-[0_8px_24px_-8px_rgba(255,146,43,0.9)] transition-transform duration-300 hover:-translate-y-0.5 hover:scale-[1.02] active:scale-[0.98]">
+                className="inline-flex w-full items-center justify-center break-anywhere rounded-full bg-saffron-500 px-7 py-3 text-center text-sm font-semibold text-black shadow-[0_8px_24px_-8px_rgba(255,146,43,0.9)] transition-transform duration-300 hover:-translate-y-0.5 hover:scale-[1.02] active:scale-[0.98] sm:w-auto">
                 {t.businessCardButton}
               </Link>
               <Link to="/consumer"
-                className="inline-flex items-center justify-center rounded-full border border-saffron-400/60 bg-saffron-500/15 px-7 py-3 text-sm font-semibold text-black backdrop-blur-md transition-all duration-300 hover:bg-saffron-500/30 active:scale-[0.98]">
+                className="inline-flex w-full items-center justify-center break-anywhere rounded-full border border-saffron-400/60 bg-saffron-500/15 px-7 py-3 text-center text-sm font-semibold text-black backdrop-blur-md transition-all duration-300 hover:bg-saffron-500/30 active:scale-[0.98] sm:w-auto">
                 {t.consumerCardButton}
               </Link>
             </motion.div>
@@ -245,15 +244,15 @@ export default function Home() {
               custom={5}
               variants={reveal}
               onClick={toggleAssistant}
-              className="group mx-auto mt-8 inline-flex items-center gap-3 rounded-full bg-saffron-500 py-2 pl-2 pr-5 text-sm font-semibold text-black shadow-[0_8px_24px_-8px_rgba(255,146,43,0.9)] transition-all duration-300 hover:bg-saffron-600 active:scale-[0.98]">
-              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-black/15 text-black">
+              className="group mx-auto mt-8 inline-flex max-w-[calc(100vw-2rem)] items-center gap-3 rounded-full bg-saffron-500 py-2 pl-2 pr-5 text-sm font-semibold text-black shadow-[0_8px_24px_-8px_rgba(255,146,43,0.9)] transition-all duration-300 hover:bg-saffron-600 active:scale-[0.98]">
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-black/15 text-black">
                 <Sparkles className="h-4 w-4" />
               </span>
-              <span className="text-left">
-                <span className="block text-sm font-semibold">{t.assistantTitle}</span>
-                <span className="block text-xs text-black/60">{t.askAssistant}</span>
+              <span className="min-w-0 text-left">
+                <span className="break-anywhere block text-sm font-semibold">{t.assistantTitle}</span>
+                <span className="break-anywhere block text-xs text-black/60">{t.askAssistant}</span>
               </span>
-              <ArrowRight className="ml-1 h-4 w-4 text-black/50 transition-transform group-hover:translate-x-0.5" />
+              <ArrowRight className="ml-1 h-4 w-4 shrink-0 text-black/50 transition-transform group-hover:translate-x-0.5" />
             </motion.button>
           </motion.div>
       </section>
