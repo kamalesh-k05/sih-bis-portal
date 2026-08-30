@@ -7,19 +7,13 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    min-width: 0;
-  }
-
-  /* Prevent long Indic text (Tamil etc.) from expanding viewport */
-  h1, h2, h3, h4, p, span, a, button, div {
-    overflow-wrap: anywhere;
-    word-break: break-word;
   }
 
   html {
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
   }
 
   body {

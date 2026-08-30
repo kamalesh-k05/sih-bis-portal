@@ -31,7 +31,7 @@ export default function Header() {
 
         {/* Desktop Nav pill */}
         <nav
-          className={`hidden h-12 flex-1 items-center justify-center gap-[22px] rounded-full px-2 shadow-[0_4px_14px_rgba(0,0,0,0.16)] transition-colors duration-300 lg:flex ${
+          className={`hidden h-12 flex-1 items-center justify-center gap-3 xl:gap-[22px] rounded-full px-3 xl:px-2 shadow-[0_4px_14px_rgba(0,0,0,0.16)] transition-colors duration-300 lg:flex overflow-hidden ${
             mobileOpen ? 'bg-white/95' : 'bg-white'
           }`}
           aria-label="Primary"
@@ -42,7 +42,7 @@ export default function Header() {
               <Link
                 key={link.path}
                 to={link.path}
-                className={`relative text-sm font-medium tracking-[-0.01em] text-[#2e2e2e] transition-opacity duration-200 ${
+                className={`relative shrink-0 whitespace-nowrap text-[13px] xl:text-sm font-medium tracking-[-0.01em] text-[#2e2e2e] transition-opacity duration-200 ${
                   isActive ? 'opacity-100' : 'opacity-50 hover:opacity-80'
                 }`}
               >
