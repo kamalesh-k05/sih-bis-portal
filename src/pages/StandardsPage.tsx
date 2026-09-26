@@ -21,24 +21,28 @@ export default function StandardsPage() {
   const [selectedCertStatus, setSelectedCertStatus] = useState<string>('');
   const [liveMap, setLiveMap] = useState<Record<string, LiveResult>>({});
   const [liveLoading, setLiveLoading] = useState<Record<string, boolean>>({});
-  const [parsedDoc, setParsedDoc] = useState<ParsedDoc | null>(null);
+  const [parsedDocs, setParsedDocs] = useState<ParsedDoc[]>([]);
   const [parsing, setParsing] = useState<{ done: number; total: number } | null>(null);
   const [parseError, setParseError] = useState('');
   const [pdfUrl, setPdfUrl] = useState('');
 
   const parseBytes = async (bytes: Uint8Array, name: string) => {
     setParseError('');
-    setParsedDoc(null);
     setParsing({ done: 0, total: 1 });
     try {
       const doc = await parsePdf(bytes, name, (done, total) => setParsing({ done, total }));
-      setParsedDoc(doc);
+      setParsedDocs(prev => {
+        const rest = prev.filter(d => d.name !== doc.name);
+        return [...rest, doc].slice(-5); // library of up to 5 official docs
+      });
     } catch (e: any) {
       setParseError(`Could not parse this PDF (${e?.message || 'unknown error'}). Try another official BIS PDF.`);
     } finally {
       setParsing(null);
     }
   };
+
+  const removeDoc = (name: string) => setParsedDocs(prev => prev.filter(d => d.name !== name));
 
   const handleFile = async (f: File | undefined) => {
     if (!f) return;
@@ -52,7 +56,6 @@ export default function StandardsPage() {
     const u = pdfUrl.trim();
     if (!u) return;
     setParseError('');
-    setParsedDoc(null);
     setParsing({ done: 0, total: 1 });
     try {
       const r = await fetch(u);
@@ -73,7 +76,16 @@ export default function StandardsPage() {
   };
 
   const docResults = docQuery.trim() ? searchDocuments(docQuery, 12) : [];
-  const parsedResults = parsedDoc && docQuery.trim() ? searchParsedDoc(parsedDoc, docQuery, 12) : null;
+  // Search ACROSS the whole library: every parsed official PDF at once
+  const parsedResults = docQuery.trim() && parsedDocs.length > 0
+    ? parsedDocs.flatMap(doc => {
+        const r = searchParsedDoc(doc, docQuery, 6);
+        return [
+          ...r.figures.map(f => ({ ...f, docName: doc.name })),
+          ...r.tables.map(t => ({ ...t, docName: doc.name })),
+        ];
+      }).slice(0, 18)
+    : [];
 
   const filtered = INDIAN_STANDARDS.filter(std => {
     const matchesSearch = !search || 
@@ -161,10 +173,17 @@ export default function StandardsPage() {
               </div>
             )}
             {parseError && <p className="mt-3 text-xs text-red-300 bg-red-400/10 rounded-xl px-3 py-2">{parseError}</p>}
-            {parsedDoc && (
+            {parsedDocs.length > 0 && (
               <div className="mt-3 rounded-xl bg-emerald-400/10 border border-emerald-400/30 px-4 py-3">
-                <p className="text-sm font-medium text-emerald-300">Parsed “{parsedDoc.name}” — {parsedDoc.pages} pages, {parsedDoc.figures.filter(f => f.kind === 'image').length} diagrams, {parsedDoc.tables.length} tables.</p>
-                <p className="text-[11px] text-slate-400 mt-0.5">Now type below to search inside this real document.</p>
+                <p className="text-sm font-medium text-emerald-300">Library: {parsedDocs.length} official document{parsedDocs.length !== 1 ? 's' : ''} parsed — one search looks inside ALL of them at once.</p>
+                <div className="mt-2 flex flex-wrap gap-2">
+                  {parsedDocs.map(d => (
+                    <span key={d.name} className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs text-slate-200">
+                      {d.name} ({d.pages}p, {d.figures.filter(f => f.kind === 'image').length} diag, {d.tables.length} tab)
+                      <button onClick={() => removeDoc(d.name)} className="text-slate-400 hover:text-red-300 font-bold" aria-label={`Remove ${d.name}`}>×</button>
+                    </span>
+                  ))}
+                </div>
               </div>
             )}
             <div className="relative mt-4">
@@ -195,48 +214,42 @@ export default function StandardsPage() {
                 {docResults.length === 0 && <p className="text-slate-400 text-sm">No figure/table matched. Try an IS code like IS 694, IS 302, or a word like diagram/table/clearance.</p>}
               </div>
             )}
-            {parsedResults && docQuery.trim() !== '' && (
+            {parsedDocs.length > 0 && docQuery.trim() !== '' && (
               <div className="mt-4 rounded-2xl border border-emerald-400/30 bg-emerald-400/5 p-4">
-                <p className="text-sm font-semibold text-emerald-300 mb-1">Real results from “{parsedDoc?.name}” ({parsedResults.textHits} text hits)</p>
-                {parsedResults.figures.length === 0 && parsedResults.tables.length === 0 && (
-                  <p className="text-slate-400 text-sm">No diagram/table matched in this document. Try “diagram”, “table”, or a keyword from the standard.</p>
+                <p className="text-sm font-semibold text-emerald-300 mb-1">
+                  Found across your {parsedDocs.length} official document{parsedDocs.length !== 1 ? 's' : ''} — no need to open each PDF:
+                </p>
+                {parsedResults.length === 0 && (
+                  <p className="text-slate-400 text-sm">No diagram/table matched in your library. Try “diagram”, “table”, or a keyword from the standards.</p>
                 )}
-                {parsedResults.figures.length > 0 && (
-                  <div className="mt-2">
-                    <p className="text-xs font-medium text-slate-300 mb-2">Diagrams found in this PDF:</p>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      {parsedResults.figures.map(({ fig, reason }) => (
-                        <div key={fig.id} className="card p-3">
-                          <img src={fig.thumbnail} alt={fig.caption} className="w-full rounded-lg border border-white/10" loading="lazy" />
-                          <p className="text-xs text-slate-200 mt-2">{fig.caption}</p>
-                          <p className="text-[11px] text-slate-500">Page {fig.page} · {reason} · from your uploaded official PDF</p>
+                {parsedResults.length > 0 && (
+                  <div className="mt-2 grid grid-cols-1 md:grid-cols-2 gap-3">
+                    {parsedResults.map((r: any) => (
+                      'fig' in r ? (
+                        <div key={r.fig.id} className="card p-3">
+                          <img src={r.fig.thumbnail} alt={r.fig.caption} className="w-full rounded-lg border border-white/10" loading="lazy" />
+                          <p className="text-xs text-slate-200 mt-2">{r.fig.caption}</p>
+                          <p className="text-[11px] text-slate-500">📄 {r.docName} · page {r.fig.page} · {r.reason}</p>
                         </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-                {parsedResults.tables.length > 0 && (
-                  <div className="mt-3">
-                    <p className="text-xs font-medium text-slate-300 mb-2">Tables found in this PDF:</p>
-                    <div className="space-y-3">
-                      {parsedResults.tables.map(({ tab, reason }) => (
-                        <div key={tab.id} className="card p-3 overflow-x-auto">
-                          <p className="text-xs font-medium text-slate-200">{tab.caption} <span className="text-slate-500">(page {tab.page} · {reason})</span></p>
+                      ) : (
+                        <div key={r.tab.id} className="card p-3 overflow-x-auto">
+                          <p className="text-xs font-medium text-slate-200">{r.tab.caption} <span className="text-slate-500">(page {r.tab.page} · {r.reason})</span></p>
+                          <p className="text-[11px] text-slate-500">📄 {r.docName}</p>
                           <table className="mt-2 w-full border-collapse text-xs">
                             <tbody>
-                              {tab.rows.slice(0, 8).map((row, i) => (
+                              {r.tab.rows.slice(0, 8).map((row: string[], i: number) => (
                                 <tr key={i} className={i === 0 ? 'bg-white/10 font-semibold text-slate-100' : 'text-slate-300'}>
-                                  {row.map((cell, j) => (
+                                  {row.map((cell: string, j: number) => (
                                     <td key={j} className="border border-white/15 px-2 py-1">{cell}</td>
                                   ))}
                                 </tr>
                               ))}
                             </tbody>
                           </table>
-                          {tab.rows.length > 8 && <p className="text-[11px] text-slate-500 mt-1">+{tab.rows.length - 8} more rows on page {tab.page}</p>}
+                          {r.tab.rows.length > 8 && <p className="text-[11px] text-slate-500 mt-1">+{r.tab.rows.length - 8} more rows on page {r.tab.page}</p>}
                         </div>
-                      ))}
-                    </div>
+                      )
+                    ))}
                   </div>
                 )}
               </div>
