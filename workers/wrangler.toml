@@ -1,0 +1,3 @@
+name = "bis-relay"
+main = "bis-relay.js"
+compatibility_date = "2026-08-01"
