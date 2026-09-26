@@ -9,6 +9,7 @@ import { searchStandards } from '../utils/searchEngine';
 import { validateResponse, getConfidenceLevel, buildSafetyDisclaimer } from '../utils/antiHallucination';
 import { generateConversationalResponse } from '../utils/responseGenerator';
 import { getReplyLanguage } from '../utils/languageDetector';
+import { getOfficialLinks } from '../utils/bisLive';
 import type { ChatMessage } from '../types';
 import Seo, { SITE_URL } from '../components/Seo';
 
@@ -70,7 +71,9 @@ export default function Assistant() {
         for (const r of results.slice(0, 3)) {
           response += `**${r.standard.id}** - ${r.standard.title}\n`;
           response += `${r.standard.certificationRequired === 'mandatory' ? 'Mandatory' : r.standard.certificationRequired === 'voluntary' ? 'Voluntary' : 'Check QCO'}\n`;
-          response += `> ${r.matchReason}\n\n`;
+          response += `> ${r.matchReason}\n`;
+          const docUrl = (getOfficialLinks(r.standard)[0] || {}).url || 'https://bis.gov.in';
+          response += `<a href="${docUrl}" target="_blank" rel="noreferrer">View original BIS document</a>\n\n`;
         }
         
         response += `\n**Would you like to:**\n`;

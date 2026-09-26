@@ -8,6 +8,7 @@ import { searchStandards } from '../utils/searchEngine';
 import { validateResponse } from '../utils/antiHallucination';
 import { generateConversationalResponse } from '../utils/responseGenerator';
 import { getReplyLanguage } from '../utils/languageDetector';
+import { getOfficialLinks } from '../utils/bisLive';
 import type { ChatMessage } from '../types';
 
 export default function AssistantChat() {
@@ -47,7 +48,8 @@ export default function AssistantChat() {
         for (const r of results.slice(0, 3)) {
           const cert = r.standard.certificationRequired === 'mandatory' ? (tt.mandatory || 'Mandatory') : 
                       r.standard.certificationRequired === 'voluntary' ? (tt.voluntary || 'Voluntary') : (tt.checkQco || 'Check QCO');
-          response += `**${r.standard.id}** - ${r.standard.title}\n${cert}\n\n`;
+          const docUrl = (getOfficialLinks(r.standard)[0] || {}).url || 'https://bis.gov.in';
+          response += `**${r.standard.id}** - ${r.standard.title}\n${cert}\n<a href="${docUrl}" target="_blank" rel="noreferrer">View original BIS document</a>\n\n`;
         }
         const check = validateResponse(response);
         setMessages(prev => [...prev, {
