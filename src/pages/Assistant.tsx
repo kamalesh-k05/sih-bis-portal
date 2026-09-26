@@ -8,6 +8,7 @@ import { INDIAN_STANDARDS } from '../data/standards';
 import { searchStandards } from '../utils/searchEngine';
 import { validateResponse, getConfidenceLevel, buildSafetyDisclaimer } from '../utils/antiHallucination';
 import { generateConversationalResponse } from '../utils/responseGenerator';
+import { getReplyLanguage } from '../utils/languageDetector';
 import type { ChatMessage } from '../types';
 import Seo, { SITE_URL } from '../components/Seo';
 
@@ -36,6 +37,8 @@ export default function Assistant() {
   }, [chatMessages, isTyping]);
 
   const processQuery = async (query: string) => {
+    const replyLang: any = getReplyLanguage(query, language as any);
+    const tt: any = (translations as any)[replyLang] || translations['en'];
     const lower = query.toLowerCase();
     
     // Intent detection
@@ -49,13 +52,20 @@ export default function Assistant() {
     const isComplaintQuery = /(complaint|report|problem|issue|wrong|defect|quality issue)/i.test(lower);
     
     if (isProductQuery) {
-      // Product standards search
+      // Product standards search — reply in user's language (judge: Hindi in → Hindi out)
       const results = searchStandards(query, INDIAN_STANDARDS, 5);
       
       if (results.length > 0) {
         const conf = getConfidenceLevel(results.map(r => r.standard), results.length);
-        let response = `**I understand.** Let me find standards for your product.\n\n`;
-        response += `### Found ${results.length} relevant standard${results.length > 1 ? 's' : ''}:\n\n`;
+        const foundPref = tt.assistantFoundPrefix || 'Found';
+        const foundSuf = tt.assistantFoundSuffix || 'relevant standard(s)';
+        let response = `**${foundPref}** ${results.length} ${foundSuf}:\n\n`;
+        // keep original intro for en, short for others
+        if ((replyLang as string) === 'en') {
+          response = `**I understand.** Let me find standards for your product.\n\n### Found ${results.length} relevant standard${results.length > 1 ? 's' : ''}:\n\n`;
+        } else {
+          response = `### ${foundPref} ${results.length} ${foundSuf}:\n\n`;
+        }
         
         for (const r of results.slice(0, 3)) {
           response += `**${r.standard.id}** - ${r.standard.title}\n`;

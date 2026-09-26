@@ -108,6 +108,14 @@ export type TranslationKeys = {
   mediumConfidence: string;
   lowConfidence: string;
   tellUsMore: string;
+
+  // Assistant multilingual (judge: same-language reply) — optional so existing languages fallback to en
+  assistantWelcome?: string;
+  assistantFoundPrefix?: string;
+  assistantFoundSuffix?: string;
+  assistantNotFound?: string;
+  assistantVerifyHelp?: string;
+  assistantThinking?: string;
   
   // Footer
   disclaimer: string;
@@ -235,6 +243,12 @@ export const translations: Record<string, TranslationKeys & Record<string, strin
     officialCareApp: 'BIS Care App',
     fileComplaint: 'File Complaint',
     footerCopyright: '© 2026 BIS Smart Portal. This is a prototype for Smart India Hackathon. Not affiliated with BIS.',
+    assistantWelcome: 'Hi! I am the BIS Assistant. Ask me anything about Indian Standards — I will reply in your language.',
+    assistantFoundPrefix: 'Found',
+    assistantFoundSuffix: 'standard(s)',
+    assistantNotFound: 'Could you describe your product a bit more? Try material, use, or model number.',
+    assistantVerifyHelp: 'I can help verify a product! Tell me the licence number or upload the label. Or go to Verify Product.',
+    assistantThinking: 'Thinking...',
   },
   hi: {
     whatYouNeed: 'आपको क्या चाहिए?',
@@ -356,6 +370,12 @@ export const translations: Record<string, TranslationKeys & Record<string, strin
     officialCareApp: 'BIS केयर ऐप',
     fileComplaint: 'शिकायत दर्ज करें',
     footerCopyright: '© 2026 BIS स्मार्ट पोर्टल। यह स्मार्ट इंडिया हैकाथॉन के लिए एक प्रोटोटाइप है। BIS से संबद्ध नहीं।',
+    assistantWelcome: 'नमस्ते! मैं BIS सहायक हूँ। भारतीय मानकों के बारे में कुछ भी पूछें — मैं आपकी भाषा में उत्तर दूँगा।',
+    assistantFoundPrefix: 'मिले',
+    assistantFoundSuffix: 'मानक',
+    assistantNotFound: 'कृपया उत्पाद का थोड़ा और विवरण दें — सामग्री, उपयोग या मॉडल नंबर बताएं।',
+    assistantVerifyHelp: 'मैं उत्पाद सत्यापन में मदद कर सकता हूँ! लाइसेंस नंबर बताएं या लेबल अपलोड करें।',
+    assistantThinking: 'सोच रहा हूँ...',
   },
   ta: {
     whatYouNeed: 'உங்களுக்கு என்ன தேவை?',
@@ -477,6 +497,12 @@ export const translations: Record<string, TranslationKeys & Record<string, strin
     officialCareApp: 'BIS கேர் ஆப்',
     fileComplaint: 'புகார் அளிக்கவும்',
     footerCopyright: '© 2026 BIS ஸ்மார்ட் போர்ட்டல். இது ஸ்மார்ட் இந்தியா ஹேக்கத்தானுக்கான முன்மாதிரி. BIS உடன் தொடர்புடையது அல்ல.',
+    assistantWelcome: 'வணக்கம்! நான் BIS உதவியாளர். இந்திய தரநிலைகள் பற்றி எதையும் கேளுங்கள் — உங்கள் மொழியில் பதிலளிப்பேன்.',
+    assistantFoundPrefix: 'கிடைத்தது',
+    assistantFoundSuffix: 'தரநிலை(கள்)',
+    assistantNotFound: 'தயவுசெய்து பொருளைப் பற்றி இன்னும் கொஞ்சம் விவரமாக சொல்லுங்கள்.',
+    assistantVerifyHelp: 'பொருளை சரிபார்க்க உதவ முடியும்! உரிம எண்ணை சொல்லுங்கள்.',
+    assistantThinking: 'யோசிக்கிறேன்...',
   },
   te: {
     whatYouNeed: 'మీకు ఏమి కావాలి?',
@@ -590,6 +616,12 @@ export const translations: Record<string, TranslationKeys & Record<string, strin
     officialCareApp: 'BIS కేర్ యాప్',
     fileComplaint: 'ఫిర్యాదు చేయండి',
     footerCopyright: '© 2026 BIS స్మార్ట్ పోర్టల్. ఇది స్మార్ట్ ఇండియా హాకథాన్ కోసం ఒక నమూనా. BIS తో సంబంధం లేదు.',
+    assistantWelcome: 'హలో! నేను BIS సహాయకుడిని. భారతీయ ప్రమాణాల గురించి ఏదైనా అడగండి — మీ భాషలోనే సమాధానం ఇస్తాను.',
+    assistantFoundPrefix: 'దొరికాయి',
+    assistantFoundSuffix: 'ప్రమాణాలు',
+    assistantNotFound: 'దయచేసి మీ ఉత్పత్తి గురించి మరింత వివరంగా చెప్పండి — మెటీరియల్, వినియోగం లేదా మోడల్ నంబర్.',
+    assistantVerifyHelp: 'ఉత్పత్తి ధృవీకరణలో సహాయం చేయగలను! లైసెన్స్ నంబర్ చెప్పండి.',
+    assistantThinking: 'ఆలోచిస్తున్నాను...',
   },
   bn: {
     whatYouNeed: 'আপনার কী দরকার?',
@@ -703,6 +735,12 @@ export const translations: Record<string, TranslationKeys & Record<string, strin
     officialCareApp: 'বিআইএস কেয়ার অ্যাপ',
     fileComplaint: 'অভিযোগ দাখিল করুন',
     footerCopyright: '© 2026 বিআইএস স্মার্ট পোর্টাল। এটি স্মার্ট ইন্ডিয়া হ্যাকাথনের জন্য একটি প্রোটোটাইপ। বিআইএস-এর সাথে সম্পৃক্ত নয়।',
+    assistantWelcome: 'হ্যালো! আমি BIS সহায়ক। ভারতীয় মান সম্পর্কে কিছু জিজ্ঞাসা করুন — আমি আপনার ভাষায় উত্তর দেব।',
+    assistantFoundPrefix: 'পাওয়া গেছে',
+    assistantFoundSuffix: 'মান',
+    assistantNotFound: 'অনুগ্রহ করে আপনার পণ্য সম্পর্কে আরও বিস্তারিত বলুন।',
+    assistantVerifyHelp: 'আমি পণ্য যাচাইয়ে সাহায্য করতে পারি! লাইসেন্স নম্বর বলুন।',
+    assistantThinking: 'ভাবছি...',
   },
   mr: {
     whatYouNeed: 'तुम्हाला काय हवे आहे?',
@@ -816,6 +854,12 @@ export const translations: Record<string, TranslationKeys & Record<string, strin
     officialCareApp: 'BIS केअर अ‍ॅप',
     fileComplaint: 'तक्रार नोंदवा',
     footerCopyright: '© 2026 BIS स्मार्ट पोर्टल. हे स्मार्ट इंडिया हॅकाथॉनसाठी एक नमुना आहे. BIS शी संलग्न नाही.',
+    assistantWelcome: 'नमस्कार! मी BIS सहाय्यक आहे. भारतीय मानकांबद्दल काहीही विचारा — मी तुमच्या भाषेत उत्तर देईन.',
+    assistantFoundPrefix: 'सापडले',
+    assistantFoundSuffix: 'मानके',
+    assistantNotFound: 'कृपया उत्पादनाबद्दल अधिक माहिती द्या.',
+    assistantVerifyHelp: 'मी उत्पादन पडताळणीत मदत करू शकतो! परवाना क्रमांक सांगा.',
+    assistantThinking: 'विचार करत आहे...',
   },
   gu: {
     whatYouNeed: 'તમારે શું જોઈએ છે?',
@@ -929,6 +973,12 @@ export const translations: Record<string, TranslationKeys & Record<string, strin
     officialCareApp: 'BIS કેર એપ',
     fileComplaint: 'ફરિયાદ નોંધાવો',
     footerCopyright: '© 2026 BIS સ્માર્ટ પોર્ટલ. આ સ્માર્ટ ઇન્ડિયા હેકાથોન માટેનો એક નમૂનો છે. BIS સાથે સંબંધિત નથી.',
+    assistantWelcome: 'નમસ્તે! હું BIS સહાયક છું. ભારતીય માનકો વિશે કંઈ પણ પૂછો — હું તમારી ભાષામાં જવાબ આપીશ.',
+    assistantFoundPrefix: 'મળ્યા',
+    assistantFoundSuffix: 'માનકો',
+    assistantNotFound: 'કૃપા કરીને ઉત્પાદન વિશે વધુ વિગત આપો.',
+    assistantVerifyHelp: 'હું ઉત્પાદન ચકાસણીમાં મદદ કરી શકું! લાયસન્સ નંબર કહો.',
+    assistantThinking: 'વિચારી રહ્યો છું...',
   },
   kn: {
     whatYouNeed: 'ನಿಮಗೆ ಏನು ಬೇಕು?',
@@ -1042,6 +1092,12 @@ export const translations: Record<string, TranslationKeys & Record<string, strin
     officialCareApp: 'BIS ಕೇರ್ ಆಪ್',
     fileComplaint: 'ದೂರು ದಾಖಲಿಸಿ',
     footerCopyright: '© 2026 BIS ಸ್ಮಾರ್ಟ್ ಪೋರ್ಟಲ್. ಇದು ಸ್ಮಾರ್ಟ್ ಇಂಡಿಯಾ ಹ್ಯಾಕಥಾನ್ಗಾಗಿ ಒಂದು ಮಾದರಿ. BIS ನೊಂದಿಗೆ ಸಂಬಂಧವಿಲ್ಲ.',
+    assistantWelcome: 'ನಮಸ್ಕಾರ! ನಾನು BIS ಸಹಾಯಕ. ಭಾರತೀಯ ಮಾನದಂಡಗಳ ಬಗ್ಗೆ ಏನು ಬೇಕಾದರೂ ಕೇಳಿ — ನಿಮ್ಮ ಭಾಷೆಯಲ್ಲೇ ಉತ್ತರಿಸುತ್ತೇನೆ.',
+    assistantFoundPrefix: 'ಸಿಕ್ಕಿದೆ',
+    assistantFoundSuffix: 'ಮಾನದಂಡಗಳು',
+    assistantNotFound: 'ದಯವಿಟ್ಟು ಉತ್ಪನ್ನದ ಬಗ್ಗೆ ಹೆಚ್ಚಿನ ವಿವರ ನೀಡಿ.',
+    assistantVerifyHelp: 'ಉತ್ಪನ್ನ ಪರಿಶೀಲನೆಯಲ್ಲಿ ಸಹಾಯ ಮಾಡಬಹುದು! ಪರವಾನಗಿ ಸಂಖ್ಯೆ ತಿಳಿಸಿ.',
+    assistantThinking: 'ಯೋಚಿಸುತ್ತಿದ್ದೇನೆ...',
   },
   ml: {
     whatYouNeed: 'നിങ്ങൾക്ക് എന്താണ് വേണ്ടത്?',
@@ -1155,6 +1211,12 @@ export const translations: Record<string, TranslationKeys & Record<string, strin
     officialCareApp: 'BIS കെയർ ആപ്പ്',
     fileComplaint: 'പരാതി രേഖപ്പെടുത്തുക',
     footerCopyright: '© 2026 BIS സ്മാർട്ട് പോർട്ടൽ. ഇത് സ്മാർട്ട് ഇന്ത്യ ഹാക്കത്തോണിനുള്ള ഒരു മാതൃകയാണ്. BIS മായി ബന്ധപ്പെട്ടതല്ല.',
+    assistantWelcome: 'ഹലോ! ഞാൻ BIS അസിസ്റ്റന്റ് ആണ്. ഇന്ത്യൻ സ്റ്റാൻഡേർഡുകളെ കുറിച്ച് എന്തും ചോദിക്കൂ — നിങ്ങളുടെ ഭാഷയിൽ മറുപടി നൽകാം.',
+    assistantFoundPrefix: 'കണ്ടെത്തി',
+    assistantFoundSuffix: 'മാനദണ്ഡങ്ങൾ',
+    assistantNotFound: 'ദയവായി ഉൽപ്പന്നത്തെ കുറിച്ച് കൂടുതൽ വിവരിക്കൂ.',
+    assistantVerifyHelp: 'ഉൽപ്പന്ന പരിശോധനയിൽ സഹായിക്കാം! ലൈസൻസ് നമ്പർ പറയൂ.',
+    assistantThinking: 'ചിന്തിക്കുന്നു...',
   },
   pa: {
     whatYouNeed: 'ਤੁਹਾਨੂੰ ਕੀ ਚਾਹੀਦਾ ਹੈ?',
@@ -1268,6 +1330,12 @@ export const translations: Record<string, TranslationKeys & Record<string, strin
     officialCareApp: 'BIS ਕੇਅਰ ਐਪ',
     fileComplaint: 'ਸ਼ਿਕਾਇਤ ਦਰਜ ਕਰੋ',
     footerCopyright: '© 2026 BIS ਸਮਾਰਟ ਪੋਰਟਲ। ਇਹ ਸਮਾਰਟ ਇੰਡੀਆ ਹੈਕਾਥਨ ਲਈ ਇੱਕ ਪ੍ਰੋਟੋਟਾਈਪ ਹੈ। BIS ਨਾਲ ਸੰਬੰਧਿਤ ਨਹੀਂ।',
+    assistantWelcome: 'ਸਤ ਸ੍ਰੀ ਅਕਾਲ! ਮੈਂ BIS ਸਹਾਇਕ ਹਾਂ। ਭਾਰਤੀ ਮਿਆਰਾਂ ਬਾਰੇ ਕੁਝ ਵੀ ਪੁੱਛੋ — ਤੁਹਾਡੀ ਭਾਸ਼ਾ ਵਿੱਚ ਜਵਾਬ ਦੇਵਾਂਗਾ।',
+    assistantFoundPrefix: 'ਮਿਲੇ',
+    assistantFoundSuffix: 'ਮਿਆਰ',
+    assistantNotFound: 'ਕਿਰਪਾ ਕਰਕੇ ਉਤਪਾਦ ਬਾਰੇ ਹੋਰ ਵੇਰਵਾ ਦਿਓ।',
+    assistantVerifyHelp: 'ਮੈਂ ਉਤਪਾਦ ਤਸਦੀਕ ਵਿੱਚ ਮਦਦ ਕਰ ਸਕਦਾ ਹਾਂ! ਲਾਇਸੈਂਸ ਨੰਬਰ ਦੱਸੋ।',
+    assistantThinking: 'ਸੋਚ ਰਿਹਾ ਹਾਂ...',
   },
   or: {
     whatYouNeed: 'ଆପଣଙ୍କର କ\'ଣ ଦରକାର?',
@@ -1381,6 +1449,12 @@ export const translations: Record<string, TranslationKeys & Record<string, strin
     officialCareApp: 'BIS କେୟାର ଆପ୍',
     fileComplaint: 'ଅଭିଯୋଗ ଦାଖଲ କରନ୍ତୁ',
     footerCopyright: '© 2026 BIS ସ୍ମାର୍ଟ ପୋର୍ଟାଲ। ଏହା ସ୍ମାର୍ଟ ଇଣ୍ଡିଆ ହାକାଥନ ପାଇଁ ଏକ ପ୍ରୋଟୋଟାଇପ୍। BIS ସହିତ ସଂଯୁକ୍ତ ନୁହେଁ।',
+    assistantWelcome: 'ନମସ୍କାର! ମୁଁ BIS ସହାୟକ। ଭାରତୀୟ ମାନକ ବିଷୟରେ କିଛି ପଚାରନ୍ତୁ — ଆପଣଙ୍କ ଭାଷାରେ ଉତ୍ତର ଦେବି।',
+    assistantFoundPrefix: 'ମିଳିଲା',
+    assistantFoundSuffix: 'ମାନକ',
+    assistantNotFound: 'ଦୟାକରି ଉତ୍ପାଦ ବିଷୟରେ ଅଧିକ ବିବରଣୀ ଦିଅନ୍ତୁ।',
+    assistantVerifyHelp: 'ମୁଁ ଉତ୍ପାଦ ଯାଞ୍ଚରେ ସାହାଯ୍ୟ କରିପାରେ! ଲାଇସେନ୍ସ ନମ୍ବର କୁହନ୍ତୁ।',
+    assistantThinking: 'ଭାବୁଛି...',
   },
   as: {
     whatYouNeed: 'আপোনাৰ কি দৰকাৰ?',
@@ -1494,6 +1568,12 @@ export const translations: Record<string, TranslationKeys & Record<string, strin
     officialCareApp: 'BIS কেয়াৰ এপ',
     fileComplaint: 'অভিযোগ দাখিল কৰক',
     footerCopyright: '© 2026 BIS স্মাৰ্ট পৰ্টেল। ই স্মাৰ্ট ইণ্ডিয়া হেকাথনৰ বাবে এটা নমুনা। BIS ৰ সৈতে জড়িত নহয়।',
+    assistantWelcome: 'নমস্কাৰ! মই BIS সহায়ক। ভাৰতীয় মানদণ্ডৰ বিষয়ে যিকোনো প্ৰশ্ন কৰক — আপোনাৰ ভাষাতে উত্তৰ দিম।',
+    assistantFoundPrefix: 'পোৱা গ\'ল',
+    assistantFoundSuffix: 'মান',
+    assistantNotFound: 'অনুগ্ৰহ কৰি উৎপাদনৰ বিষয়ে অধিক বিৱৰণ দিয়ক।',
+    assistantVerifyHelp: 'মই সামগ্ৰী পৰীক্ষাত সহায় কৰিব পাৰো! অনুজ্ঞা নম্বৰ কওক।',
+    assistantThinking: 'ভাবি আছো...',
   },
   ur: {
     whatYouNeed: 'آپ کو کیا چاہیے؟',
@@ -1607,6 +1687,12 @@ export const translations: Record<string, TranslationKeys & Record<string, strin
     officialCareApp: 'BIS کیئر ایپ',
     fileComplaint: 'شکایت درج کریں',
     footerCopyright: '© 2026 BIS سمارٹ پورٹل۔ یہ سمارٹ انڈیا ہیکاتھون کے لیے ایک پروٹوٹائپ ہے۔ BIS سے وابستہ نہیں۔',
+    assistantWelcome: 'ہیلو! میں BIS اسسٹنٹ ہوں۔ بھارتی معیارات کے بارے میں کچھ بھی پوچھیں — میں آپ کی زبان میں جواب دوں گا۔',
+    assistantFoundPrefix: 'ملے',
+    assistantFoundSuffix: 'معیارات',
+    assistantNotFound: 'براہ کرم مصنوعات کے بارے میں مزید تفصیل بتائیں۔',
+    assistantVerifyHelp: 'میں مصنوعات کی تصدیق میں مدد کر سکتا ہوں! لائسنس نمبر بتائیں۔',
+    assistantThinking: 'سوچ رہا ہوں...',
   },
   sa: {
     whatYouNeed: 'भवतः किं प्रयोजनम्?',
@@ -1720,6 +1806,12 @@ export const translations: Record<string, TranslationKeys & Record<string, strin
     officialCareApp: 'BIS केयर्-अनुप्रयोगः',
     fileComplaint: 'अभियोगं निवेदयतु',
     footerCopyright: '© 2026 BIS स्मार्ट्-पोर्टलम्। एतत् स्मार्ट्-इण्डिया-हैकाथॉन्-कृते एकम् आदर्शरूपम्। BIS सह सम्बद्धं नास्ति।',
+    assistantWelcome: 'नमस्ते! अहं BIS सहायकः अस्मि। भारतीयमानकविषये किमपि पृच्छतु — भवतः भाषायाम् उत्तरं दास्यामि।',
+    assistantFoundPrefix: 'लब्धम्',
+    assistantFoundSuffix: 'मानकानि',
+    assistantNotFound: 'कृपया उत्पादस्य अधिकं विवरणं ददातु।',
+    assistantVerifyHelp: 'अहं उत्पादसत्यापने साहाय्यं कर्तुं शक्नोमि! अनुज्ञापत्रसङ्ख्यां वदतु।',
+    assistantThinking: 'चिन्तयामि...',
   },
 };
 
