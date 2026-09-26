@@ -115,7 +115,7 @@ export default function Assistant() {
         metadata: { confidence: 'high' },
       });
     } else if (isExplanationQuery) {
-      const response = generateConversationalResponse(query);
+      const response = generateConversationalResponse(query, replyLang as string);
       addChatMessage({
         id: Date.now().toString(),
         role: 'assistant',
@@ -135,7 +135,7 @@ export default function Assistant() {
       addChatMessage({
         id: Date.now().toString(),
         role: 'assistant',
-        content: generateConversationalResponse(query),
+        content: generateConversationalResponse(query, replyLang as string),
         timestamp: new Date(),
         metadata: { confidence: 'medium', isWhitelistValid: true },
       });

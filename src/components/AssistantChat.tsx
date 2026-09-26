@@ -66,17 +66,7 @@ export default function AssistantChat() {
         }]);
       }
     } else {
-      // Try to give a conversational reply in replyLang if available, else fallback
-      const eng = generateConversationalResponse(query);
-      // If replyLang is hi/ta and eng is generic, we keep eng but prefix with same-language hint
-      // For judge demo, this shows same-language behaviour for Hindi/Tamil inputs
-      let content = eng;
-      if (replyLang === 'hi' && /[\u0900-\u097F]/.test(query)) {
-        content = tt.assistantNotFound || eng;
-      } else if (replyLang !== 'en' && tt.assistantWelcome) {
-        // keep eng but ensure we at least show we understood language
-        content = eng;
-      }
+      const content = generateConversationalResponse(query, replyLang as string);
       setMessages(prev => [...prev, {
         id: Date.now().toString(),
         role: 'assistant',
