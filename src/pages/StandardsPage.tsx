@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, ChevronRight, Radio, ExternalLink, FileImage, Table2, Loader2 } from 'lucide-react';
+import { Search, ChevronRight, Radio, ExternalLink, FileImage, Table2, Loader2, Upload, Link2, BookOpen } from 'lucide-react';
 import { INDIAN_STANDARDS, type IndianStandard } from '../data/standards';
 import { fetchLiveStandard, getOfficialLinks, type LiveResult } from '../utils/bisLive';
 import { searchDocuments } from '../utils/documentSearch';
+import { parsePdf, searchParsedDoc, type ParsedDoc } from '../utils/pdfParser';
 import { useAppStore } from '../store/appStore';
 import { translations } from '../data/translations';
 import Seo, { SITE_URL } from '../components/Seo';
@@ -20,6 +21,49 @@ export default function StandardsPage() {
   const [selectedCertStatus, setSelectedCertStatus] = useState<string>('');
   const [liveMap, setLiveMap] = useState<Record<string, LiveResult>>({});
   const [liveLoading, setLiveLoading] = useState<Record<string, boolean>>({});
+  const [parsedDoc, setParsedDoc] = useState<ParsedDoc | null>(null);
+  const [parsing, setParsing] = useState<{ done: number; total: number } | null>(null);
+  const [parseError, setParseError] = useState('');
+  const [pdfUrl, setPdfUrl] = useState('');
+
+  const parseBytes = async (bytes: Uint8Array, name: string) => {
+    setParseError('');
+    setParsedDoc(null);
+    setParsing({ done: 0, total: 1 });
+    try {
+      const doc = await parsePdf(bytes, name, (done, total) => setParsing({ done, total }));
+      setParsedDoc(doc);
+    } catch (e: any) {
+      setParseError(`Could not parse this PDF (${e?.message || 'unknown error'}). Try another official BIS PDF.`);
+    } finally {
+      setParsing(null);
+    }
+  };
+
+  const handleFile = async (f: File | undefined) => {
+    if (!f) return;
+    if (!/\.pdf$/i.test(f.name)) { setParseError('Please choose a .pdf file (official BIS document).'); return; }
+    if (f.size > 25 * 1024 * 1024) { setParseError('PDF is larger than 25 MB — please use a smaller official extract.'); return; }
+    const buf = new Uint8Array(await f.arrayBuffer());
+    await parseBytes(buf, f.name);
+  };
+
+  const handleUrl = async () => {
+    const u = pdfUrl.trim();
+    if (!u) return;
+    setParseError('');
+    setParsedDoc(null);
+    setParsing({ done: 0, total: 1 });
+    try {
+      const r = await fetch(u);
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      const buf = new Uint8Array(await r.arrayBuffer());
+      await parseBytes(buf, u.split('/').pop()?.split('?')[0] || 'official-document.pdf');
+    } catch (e: any) {
+      setParsing(null);
+      setParseError(`Could not download this PDF (${e?.message || 'blocked by CORS — download it and upload the file instead'}).`);
+    }
+  };
 
   const checkLive = async (std: IndianStandard) => {
     setLiveLoading(p => ({ ...p, [std.id]: true }));
@@ -29,6 +73,7 @@ export default function StandardsPage() {
   };
 
   const docResults = docQuery.trim() ? searchDocuments(docQuery, 12) : [];
+  const parsedResults = parsedDoc && docQuery.trim() ? searchParsedDoc(parsedDoc, docQuery, 12) : null;
 
   const filtered = INDIAN_STANDARDS.filter(std => {
     const matchesSearch = !search || 
@@ -91,10 +136,41 @@ export default function StandardsPage() {
 
         {tab === 'docs' && (
           <div className="card-elevated p-4 sm:p-6 mb-6">
-            <div className="relative">
+            <div className="flex items-center gap-2 mb-2">
+              <BookOpen className="w-4 h-4 text-saffron-400" />
+              <h2 className="font-semibold text-sm text-slate-50">Parse a real official BIS PDF</h2>
+            </div>
+            <p className="text-xs text-slate-400 mb-3">Upload any official BIS standard PDF from your device — the site reads it in your browser and lets you search its diagrams & tables by page. Nothing leaves your device.</p>
+            <div className="flex flex-col sm:flex-row gap-2">
+              <label className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl bg-saffron-500 px-4 py-2.5 text-sm font-semibold text-black hover:bg-saffron-400 transition-colors">
+                <Upload className="w-4 h-4" /> Upload BIS PDF
+                <input type="file" accept="application/pdf,.pdf" className="hidden" onChange={(e) => handleFile(e.target.files?.[0])} />
+              </label>
+              <div className="relative flex-1">
+                <Link2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                <input type="text" value={pdfUrl} onChange={(e) => setPdfUrl(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && handleUrl()}
+                  placeholder="...or paste a direct PDF link (https://...pdf)"
+                  className="w-full pl-10 pr-4 py-2.5 border-2 border-white/15 rounded-xl text-sm focus:border-saffron-500/70 focus:ring-0 outline-none" />
+              </div>
+              <button onClick={handleUrl} className="rounded-xl border border-white/15 px-4 py-2.5 text-sm font-medium text-slate-200 hover:bg-white/10 transition-colors">Fetch & parse</button>
+            </div>
+            {parsing && (
+              <div className="mt-3 flex items-center gap-2 text-sm text-slate-300">
+                <Loader2 className="w-4 h-4 animate-spin text-saffron-400" />
+                Reading official document… page {parsing.done} of {parsing.total}
+              </div>
+            )}
+            {parseError && <p className="mt-3 text-xs text-red-300 bg-red-400/10 rounded-xl px-3 py-2">{parseError}</p>}
+            {parsedDoc && (
+              <div className="mt-3 rounded-xl bg-emerald-400/10 border border-emerald-400/30 px-4 py-3">
+                <p className="text-sm font-medium text-emerald-300">Parsed “{parsedDoc.name}” — {parsedDoc.pages} pages, {parsedDoc.figures.filter(f => f.kind === 'image').length} diagrams, {parsedDoc.tables.length} tables.</p>
+                <p className="text-[11px] text-slate-400 mt-0.5">Now type below to search inside this real document.</p>
+              </div>
+            )}
+            <div className="relative mt-4">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
               <input type="text" value={docQuery} onChange={(e) => setDocQuery(e.target.value)}
-                placeholder='Try: "show diagram for IS 694" or "resistance table"'
+                placeholder='Try: "show diagram" or "resistance table" (searches sample index + your parsed PDF)'
                 className="w-full pl-10 pr-4 py-2.5 border-2 border-white/15 rounded-xl text-sm focus:border-saffron-500/70 focus:ring-0 outline-none" />
             </div>
             <p className="text-xs text-slate-400 mt-3">Searches figures & tables inside official BIS documents — each result cites page + original PDF.</p>
@@ -117,6 +193,52 @@ export default function StandardsPage() {
                   </div>
                 ))}
                 {docResults.length === 0 && <p className="text-slate-400 text-sm">No figure/table matched. Try an IS code like IS 694, IS 302, or a word like diagram/table/clearance.</p>}
+              </div>
+            )}
+            {parsedResults && docQuery.trim() !== '' && (
+              <div className="mt-4 rounded-2xl border border-emerald-400/30 bg-emerald-400/5 p-4">
+                <p className="text-sm font-semibold text-emerald-300 mb-1">Real results from “{parsedDoc?.name}” ({parsedResults.textHits} text hits)</p>
+                {parsedResults.figures.length === 0 && parsedResults.tables.length === 0 && (
+                  <p className="text-slate-400 text-sm">No diagram/table matched in this document. Try “diagram”, “table”, or a keyword from the standard.</p>
+                )}
+                {parsedResults.figures.length > 0 && (
+                  <div className="mt-2">
+                    <p className="text-xs font-medium text-slate-300 mb-2">Diagrams found in this PDF:</p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {parsedResults.figures.map(({ fig, reason }) => (
+                        <div key={fig.id} className="card p-3">
+                          <img src={fig.thumbnail} alt={fig.caption} className="w-full rounded-lg border border-white/10" loading="lazy" />
+                          <p className="text-xs text-slate-200 mt-2">{fig.caption}</p>
+                          <p className="text-[11px] text-slate-500">Page {fig.page} · {reason} · from your uploaded official PDF</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {parsedResults.tables.length > 0 && (
+                  <div className="mt-3">
+                    <p className="text-xs font-medium text-slate-300 mb-2">Tables found in this PDF:</p>
+                    <div className="space-y-3">
+                      {parsedResults.tables.map(({ tab, reason }) => (
+                        <div key={tab.id} className="card p-3 overflow-x-auto">
+                          <p className="text-xs font-medium text-slate-200">{tab.caption} <span className="text-slate-500">(page {tab.page} · {reason})</span></p>
+                          <table className="mt-2 w-full border-collapse text-xs">
+                            <tbody>
+                              {tab.rows.slice(0, 8).map((row, i) => (
+                                <tr key={i} className={i === 0 ? 'bg-white/10 font-semibold text-slate-100' : 'text-slate-300'}>
+                                  {row.map((cell, j) => (
+                                    <td key={j} className="border border-white/15 px-2 py-1">{cell}</td>
+                                  ))}
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                          {tab.rows.length > 8 && <p className="text-[11px] text-slate-500 mt-1">+{tab.rows.length - 8} more rows on page {tab.page}</p>}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             )}
           </div>
