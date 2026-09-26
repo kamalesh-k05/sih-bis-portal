@@ -7,6 +7,11 @@ export interface LiveResult {
   message: string;
   officialLinks: { label: string; url: string }[];
   fetchedAt: string;
+  rowCount: number;
+  // BIS 'is_id' is an INTERNAL database key, NOT the IS standard number.
+  // Rows returned for a query must be verified on the original page — never
+  // presented as confirmed licences of the displayed standard.
+  mappingVerified: boolean;
 }
 
 function isCodeOf(std: IndianStandard): string {
@@ -36,27 +41,34 @@ export async function fetchLiveStandard(std: IndianStandard, timeoutMs = 6000): 
   const relay = (import.meta as any).env?.VITE_BIS_RELAY as string | undefined;
   const fetchedAt = new Date().toISOString();
 
+  // The IS number (e.g. "IS 1077") is NOT the BIS internal id — strip to digits
+  // only for the query attempt, and NEVER claim returned rows belong to the standard.
+  const digits = (std.id.match(/\d+/) || [''])[0];
+
   if (!relay) {
     return {
       ok: true, live: false,
       source: 'cached + official BIS links',
-      message: `Live relay not configured in this build. Showing verified cached data for ${std.id} with direct links to the ORIGINAL BIS site below. Set VITE_BIS_RELAY to a Worker URL for genuine live licence JSON.`,
-      officialLinks, fetchedAt,
+      message: `Showing verified cached data for ${std.id} with direct links to the ORIGINAL BIS site below.`,
+      officialLinks, fetchedAt, rowCount: 0, mappingVerified: false,
     };
   }
 
   const ctrl = new AbortController();
   const t = setTimeout(() => ctrl.abort(), timeoutMs);
   try {
-    const r = await fetch(`${relay}?is_id=${encodeURIComponent(std.id)}`, { signal: ctrl.signal });
+    const r = await fetch(`${relay}?is_id=${encodeURIComponent(digits)}`, { signal: ctrl.signal });
     clearTimeout(t);
     if (!r.ok) throw new Error(`relay ${r.status}`);
     const j = await r.json().catch(() => null);
+    const rows = Array.isArray(j?.data?.aaData) ? j.data.aaData.length : 0;
     return {
       ok: true, live: true,
       source: 'services.bis.gov.in (live via relay)',
-      message: j ? `Live data received for ${std.id} via relay.` : `Relay responded for ${std.id}.`,
-      officialLinks, fetchedAt,
+      message: rows > 0
+        ? `BIS server answered LIVE (${rows} licence row${rows !== 1 ? 's' : ''} returned). BIS uses internal IDs, so confirm the match on the original page below — rows are not auto-attributed to ${std.id}.`
+        : `BIS server answered LIVE (0 rows for this query). The standard's details below are cached; confirm on the original page.`,
+      officialLinks, fetchedAt, rowCount: rows, mappingVerified: false,
     };
   } catch (e: any) {
     clearTimeout(t);
@@ -64,7 +76,7 @@ export async function fetchLiveStandard(std: IndianStandard, timeoutMs = 6000): 
       ok: true, live: false,
       source: 'cached + official BIS links',
       message: `Live fetch failed (${e?.message || 'network/CORS'}). Showing cached data for ${std.id} — open the ORIGINAL BIS link below to verify.`,
-      officialLinks, fetchedAt,
+      officialLinks, fetchedAt, rowCount: 0, mappingVerified: false,
     };
   }
 }

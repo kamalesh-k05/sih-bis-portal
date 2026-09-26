@@ -323,12 +323,12 @@ export default function StandardsPage() {
               <button onClick={() => checkLive(std)} disabled={loading}
                 className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-saffron-300 hover:text-saffron-200 disabled:opacity-50">
                 {loading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Radio className="w-3.5 h-3.5" />}
-                {loading ? 'Checking ORIGINAL BIS site…' : live ? (live.live ? 'Live ✓ services.bis.gov.in' : 'Cached + official links') : 'Check live on ORIGINAL BIS site'}
+                {loading ? 'Checking ORIGINAL BIS site…' : live ? (live.live ? `BIS server live ✓${live.rowCount > 0 ? ` (${live.rowCount} row${live.rowCount !== 1 ? 's' : ''})` : ''}` : 'Cached + official links') : 'Check live on ORIGINAL BIS site'}
               </button>
               {live && (
                 <div className="mt-2 rounded-xl bg-white/[0.04] p-3">
                   <p className="text-[11px] text-slate-300 leading-relaxed">{live.message}</p>
-                  <p className="text-[10px] text-slate-500 mt-1">Source: {live.source}</p>
+                  <p className="text-[10px] text-slate-500 mt-1">Source: {live.source} · BIS uses internal IDs — always confirm the match on the original page.</p>
                   <div className="mt-2 flex flex-col gap-1">
                     {live.officialLinks.map(l => (
                       <a key={l.label} href={l.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-[11px] text-saffron-300 hover:text-saffron-200">
